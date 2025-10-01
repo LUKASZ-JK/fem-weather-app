@@ -1,21 +1,55 @@
+import {
+  PrecipitationUnits,
+  TemperatureUnits,
+  WindSpeedUnits,
+  type Units,
+  type City,
+  type WeatherData,
+  weatherDataSchema,
+} from '@/types';
+import { handleApiError } from '@/utils';
 import { fetchWeatherApi } from 'openmeteo';
 
-//https://open-meteo.com/en/docs?current=temperature_2m,weather_code,apparent_temperature,relative_humidity_2m,precipitation,wind_speed_10m&hourly=temperature_2m,weather_code
+//open-meteo.com/en/docs?current=temperature_2m,weather_code,apparent_temperature,relative_humidity_2m,precipitation,wind_speed_10m&hourly=temperature_2m,weather_code
+//open-meteo.com/en/docs?current=temperature_2m,weather_code,apparent_temperature,relative_humidity_2m,precipitation,wind_speed_10m&hourly=temperature_2m,weather_code&temperature_unit=fahrenheit&wind_speed_unit=ms&precipitation_unit=inch#daily_weather_variables
 
-const getWeather = async (lat: number, long: number) => {
-  const params = {
-    'latitude': lat,
-    'longitude': long,
+const getWeather = async (city: City, units: Units): Promise<WeatherData> => {
+  const params: {
+    latitude: number;
+    longitude: number;
+    daily: string[];
+    hourly: string[];
+    current: string[];
+    temperature_unit?: string;
+    precipitation_unit?: string;
+    wind_speed_unit?: string;
+    timezone: string;
+  } = {
+    'latitude': city.latitude,
+    'longitude': city.longitude,
+    'daily': ['temperature_2m_max', 'temperature_2m_min', 'weather_code'],
     'hourly': ['temperature_2m', 'weather_code'],
     'current': [
       'temperature_2m',
       'weather_code',
-      'apparent_temperature',
       'relative_humidity_2m',
       'precipitation',
       'wind_speed_10m',
+      'apparent_temperature',
     ],
+    'timezone': city.timezone,
   };
+
+  if (units.temperature === TemperatureUnits.fahrenheit) {
+    params.temperature_unit = TemperatureUnits.fahrenheit;
+  }
+  if (units.precipitation === PrecipitationUnits.inch) {
+    params.precipitation_unit = PrecipitationUnits.inch;
+  }
+  if (units.windSpeed === WindSpeedUnits.mph) {
+    params.wind_speed_unit = WindSpeedUnits.mph;
+  }
+
   const url = 'https://api.open-meteo.com/v1/forecast';
   const responses = await fetchWeatherApi(url, params);
 
@@ -36,6 +70,7 @@ const getWeather = async (lat: number, long: number) => {
 
   const current = response.current()!;
   const hourly = response.hourly()!;
+  const daily = response.daily()!;
 
   // Note: The order of weather variables in the URL query and the indices below need to match!
   const weatherData = {
@@ -43,10 +78,10 @@ const getWeather = async (lat: number, long: number) => {
       time: new Date((Number(current.time()) + utcOffsetSeconds) * 1000),
       temperature_2m: current.variables(0)!.value(),
       weather_code: current.variables(1)!.value(),
-      apparent_temperature: current.variables(2)!.value(),
-      relative_humidity_2m: current.variables(3)!.value(),
-      precipitation: current.variables(4)!.value(),
-      wind_speed_10m: current.variables(5)!.value(),
+      relative_humidity_2m: current.variables(2)!.value(),
+      precipitation: current.variables(3)!.value(),
+      wind_speed_10m: current.variables(4)!.value(),
+      apparent_temperature: current.variables(5)!.value(),
     },
     hourly: {
       time: [
@@ -64,6 +99,22 @@ const getWeather = async (lat: number, long: number) => {
       temperature_2m: hourly.variables(0)!.valuesArray(),
       weather_code: hourly.variables(1)!.valuesArray(),
     },
+    daily: {
+      time: [
+        ...Array(
+          (Number(daily.timeEnd()) - Number(daily.time())) / daily.interval(),
+        ),
+      ].map(
+        (_, i) =>
+          new Date(
+            (Number(daily.time()) + i * daily.interval() + utcOffsetSeconds) *
+              1000,
+          ),
+      ),
+      temperature_2m_max: daily.variables(0)!.valuesArray(),
+      temperature_2m_min: daily.variables(1)!.valuesArray(),
+      weather_code: daily.variables(2)!.valuesArray(),
+    },
   };
 
   // 'weatherData' now contains a simple structure with arrays with datetime and weather data
@@ -71,12 +122,20 @@ const getWeather = async (lat: number, long: number) => {
     `\nCurrent time: ${weatherData.current.time}`,
     `\nCurrent temperature_2m: ${weatherData.current.temperature_2m}`,
     `\nCurrent weather_code: ${weatherData.current.weather_code}`,
-    `\nCurrent apparent_temperature: ${weatherData.current.apparent_temperature}`,
     `\nCurrent relative_humidity_2m: ${weatherData.current.relative_humidity_2m}`,
     `\nCurrent precipitation: ${weatherData.current.precipitation}`,
     `\nCurrent wind_speed_10m: ${weatherData.current.wind_speed_10m}`,
+    `\nCurrent apparent_temperature: ${weatherData.current.apparent_temperature}`,
   );
   console.log('\nHourly data', weatherData.hourly);
+  console.log('\nDaily data', weatherData.daily);
+
+  try {
+    const results = weatherDataSchema.parse(weatherData);
+    return results;
+  } catch (error) {
+    throw new Error(handleApiError(error));
+  }
 };
 
 export default { getWeather };

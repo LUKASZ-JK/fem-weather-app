@@ -3,12 +3,17 @@ import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import cityService from '@/services/city';
 import weatherService from '@/services/weather';
-import type { City } from './types';
+import type { City, WeatherData } from './types';
+import { useUnitsStore } from './store';
+import UnitsSelector from './components/UnitsSelector';
+import CurrentWeather from './components/CurrentWeather';
 
 function App() {
   const [query, setQuery] = useState('');
   const [cities, setCities] = useState<City[]>([]);
   const [city, setCity] = useState<City>();
+  const [weatherData, setWeatherData] = useState<WeatherData>();
+  const { units } = useUnitsStore();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setQuery(e.target.value);
@@ -20,14 +25,20 @@ function App() {
     console.log(cities);
   };
 
-  const handleCitySelect = (city: City) => {
+  const handleCitySelect = async (city: City) => {
     setCity(city);
-    weatherService.getWeather(city.latitude, city.longitude);
+    try {
+      const weatherData = await weatherService.getWeather(city, units);
+      setWeatherData(weatherData);
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (
     <>
       <div>
+        <UnitsSelector />
         <input type="text" placeholder="Search..." onChange={handleChange} />
         <Button onClick={handleSearch}>Search</Button>
         {cities.length > 0 && (
@@ -40,13 +51,7 @@ function App() {
           </ul>
         )}
       </div>
-      {city && (
-        <div>
-          <h2>
-            {city.name}, {city.country}
-          </h2>
-        </div>
-      )}
+      <CurrentWeather city={city} currentWeatherData={weatherData?.current} />
     </>
   );
 }
