@@ -1,5 +1,10 @@
 import { create } from 'zustand';
-import { type Units } from '@/types';
+import {
+  PrecipitationUnits,
+  TemperatureUnits,
+  WindSpeedUnits,
+  type Units,
+} from '@/types';
 
 interface UnitsStore {
   units: Units;
@@ -13,9 +18,9 @@ interface UnitsStore {
 export const useUnitsStore = create<UnitsStore>(set => ({
   units: {
     unitsPreset: 'metric',
-    temperature: 'celsius',
-    windSpeed: 'km/h',
-    precipitation: 'mm',
+    temperature: TemperatureUnits.celsius,
+    windSpeed: WindSpeedUnits.kmh,
+    precipitation: PrecipitationUnits.mm,
   },
 
   setUnitsPreset: unitsPreset => {
@@ -25,15 +30,15 @@ export const useUnitsStore = create<UnitsStore>(set => ({
 
     switch (unitsPreset) {
       case 'imperial':
-        temperature = 'fahrenheit';
-        windSpeed = 'mph';
-        precipitation = 'inch';
+        temperature = TemperatureUnits.fahrenheit;
+        windSpeed = WindSpeedUnits.mph;
+        precipitation = PrecipitationUnits.inch;
         break;
       case 'metric':
       default:
-        temperature = 'celsius';
-        windSpeed = 'km/h';
-        precipitation = 'mm';
+        temperature = TemperatureUnits.celsius;
+        windSpeed = WindSpeedUnits.kmh;
+        precipitation = PrecipitationUnits.mm;
         break;
     }
     set({

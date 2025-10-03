@@ -1,4 +1,4 @@
-import { useUnitsStore } from '../store';
+import { useUnitsStore } from '../unitsStore';
 import { Button } from '@/components/ui/button';
 import iconUnits from '../assets/icon-units.svg';
 import iconDropdown from '../assets/icon-dropdown.svg';
@@ -12,6 +12,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
+import { PrecipitationUnits, TemperatureUnits, WindSpeedUnits } from '@/types';
 
 const Checkmark = () => (
   <img src={iconCheckkmark} alt="Checkmark Icon" className="w-4 h-4 ml-auto" />
@@ -58,31 +59,41 @@ const UnitsSelector = () => {
           </DropdownMenuItem>
           <DropdownMenuGroup>
             <DropdownMenuLabel>Temperature</DropdownMenuLabel>
-            <DropdownMenuItem onClick={() => setTemperature('celsius')}>
-              Celsius {units.temperature === 'celsius' && <Checkmark />}
+            <DropdownMenuItem
+              onClick={() => setTemperature(TemperatureUnits.celsius)}>
+              Celsius
+              {units.temperature === TemperatureUnits.celsius && <Checkmark />}
             </DropdownMenuItem>
-            <DropdownMenuItem onClick={() => setTemperature('fahrenheit')}>
-              Fahrenheit {units.temperature === 'fahrenheit' && <Checkmark />}
+            <DropdownMenuItem
+              onClick={() => setTemperature(TemperatureUnits.fahrenheit)}>
+              Fahrenheit
+              {units.temperature === TemperatureUnits.fahrenheit && (
+                <Checkmark />
+              )}
             </DropdownMenuItem>
           </DropdownMenuGroup>
           <DropdownMenuSeparator />
           <DropdownMenuGroup>
             <DropdownMenuLabel>Wind Speed</DropdownMenuLabel>
-            <DropdownMenuItem onClick={() => setWindSpeed('km/h')}>
-              km/h {units.windSpeed === 'km/h' && <Checkmark />}
+            <DropdownMenuItem onClick={() => setWindSpeed(WindSpeedUnits.kmh)}>
+              km/h {units.windSpeed === WindSpeedUnits.kmh && <Checkmark />}
             </DropdownMenuItem>
-            <DropdownMenuItem onClick={() => setWindSpeed('mph')}>
-              mph {units.windSpeed === 'mph' && <Checkmark />}
+            <DropdownMenuItem onClick={() => setWindSpeed(WindSpeedUnits.mph)}>
+              mph {units.windSpeed === WindSpeedUnits.mph && <Checkmark />}
             </DropdownMenuItem>
           </DropdownMenuGroup>
           <DropdownMenuSeparator />
           <DropdownMenuGroup>
             <DropdownMenuLabel>Precipitation</DropdownMenuLabel>
-            <DropdownMenuItem onClick={() => setPrecipitation('mm')}>
-              mm {units.precipitation === 'mm' && <Checkmark />}
+            <DropdownMenuItem
+              onClick={() => setPrecipitation(PrecipitationUnits.mm)}>
+              mm
+              {units.precipitation === PrecipitationUnits.mm && <Checkmark />}
             </DropdownMenuItem>
-            <DropdownMenuItem onClick={() => setPrecipitation('inch')}>
-              inch {units.precipitation === 'inch' && <Checkmark />}
+            <DropdownMenuItem
+              onClick={() => setPrecipitation(PrecipitationUnits.inch)}>
+              inch
+              {units.precipitation === PrecipitationUnits.inch && <Checkmark />}
             </DropdownMenuItem>
           </DropdownMenuGroup>
         </DropdownMenuContent>

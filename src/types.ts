@@ -31,16 +31,16 @@ export type City = z.infer<typeof CitySchema>;
 
 export const UnitPresets = { metric: 'metric', imperial: 'imperial' } as const;
 export const TemperatureUnits = {
-  celsius: 'celsius',
-  fahrenheit: 'fahrenheit',
+  celsius: '°C',
+  fahrenheit: '°F',
 } as const;
-export const WindSpeedUnits = { 'km/h': 'km/h', mph: 'mph' } as const;
+export const WindSpeedUnits = { kmh: 'km/h', mph: 'mph' } as const;
 export const PrecipitationUnits = { mm: 'mm', inch: 'inch' } as const;
 
 export const UnitsSchema = z.object({
   unitsPreset: z.enum([UnitPresets.metric, UnitPresets.imperial]),
   temperature: z.enum([TemperatureUnits.celsius, TemperatureUnits.fahrenheit]),
-  windSpeed: z.enum([WindSpeedUnits['km/h'], WindSpeedUnits.mph]),
+  windSpeed: z.enum([WindSpeedUnits.kmh, WindSpeedUnits.mph]),
   precipitation: z.enum([PrecipitationUnits.mm, PrecipitationUnits.inch]),
 });
 
@@ -79,3 +79,19 @@ export type DailyWeather = z.infer<typeof dailyWeatherDataSchema>;
 export type WeatherData = z.infer<typeof weatherDataSchema>;
 
 export type Units = z.infer<typeof UnitsSchema>;
+
+export const ApiStates = {
+  idle: 'idle',
+  loading: 'loading',
+  success: 'success',
+  error: 'error',
+} as const;
+
+export const ApiStateSchema = z.enum([
+  ApiStates.idle,
+  ApiStates.loading,
+  ApiStates.success,
+  ApiStates.error,
+]);
+
+export type ApiState = z.infer<typeof ApiStateSchema>;

@@ -1,14 +1,36 @@
-import type { City, CurrentWeatherData } from '@/types';
+import { useUnitsStore } from '@/unitsStore';
+import ConditionTile from './ConditionTile';
+import { useWeatherStore } from '@/weatherStore';
 
-type CurrentWeatherProps = {
-  city: City | undefined;
-  currentWeatherData: CurrentWeatherData | undefined;
-};
+const CurrentWeather = () => {
+  const { city, weatherData } = useWeatherStore();
+  const { units } = useUnitsStore();
+  const currentWeatherData = weatherData?.current;
 
-const CurrentWeather = ({ city, currentWeatherData }: CurrentWeatherProps) => {
   return (
     <div>
-      {city?.name} {currentWeatherData?.apparent_temperature.toFixed()}°C
+      {city?.name} {currentWeatherData?.temperature_2m.toFixed()}
+      {units.temperature}
+      <ConditionTile
+        title={'Feels like'}
+        value={currentWeatherData?.apparent_temperature}
+        units={units.temperature}
+      />
+      <ConditionTile
+        title={'Humidity'}
+        value={currentWeatherData?.relative_humidity_2m}
+        units={'%'}
+      />
+      <ConditionTile
+        title={'Wind'}
+        value={currentWeatherData?.wind_speed_10m}
+        units={units.windSpeed}
+      />
+      <ConditionTile
+        title={'Precipitation'}
+        value={currentWeatherData?.precipitation}
+        units={units.precipitation}
+      />
     </div>
   );
 };
