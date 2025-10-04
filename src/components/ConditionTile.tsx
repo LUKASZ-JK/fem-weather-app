@@ -8,7 +8,7 @@ const ConditionTile = ({ title, value, units }: ConditionTileProps) => {
   return (
     <div className="condition-tile">
       {title}
-      {value}
+      {value?.toFixed(0)}
       {units}
     </div>
   );

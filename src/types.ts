@@ -17,8 +17,8 @@ export const CitySchema = z.object({
   country: z.string(),
   country_code: z.string().optional(),
   country_id: z.number().optional(),
-  admin1: z.string(),
-  admin1_id: z.number(),
+  admin1: z.string().optional(),
+  admin1_id: z.number().optional(),
   admin2: z.string().optional(),
   admin2_id: z.number().optional(),
   admin3: z.string().optional(),
@@ -95,3 +95,49 @@ export const ApiStateSchema = z.enum([
 ]);
 
 export type ApiState = z.infer<typeof ApiStateSchema>;
+
+export const WeatherIconNames = {
+  drizzle: 'drizzle',
+  fog: 'fog',
+  overcast: 'overcast',
+  'partly-cloudy': 'partly-cloudy',
+  rain: 'rain',
+  snow: 'snow',
+  storm: 'storm',
+  sunny: 'sunny',
+} as const;
+
+export const WeatherIconNamesSchema = z.enum([
+  WeatherIconNames.drizzle,
+  WeatherIconNames.fog,
+  WeatherIconNames.overcast,
+  WeatherIconNames['partly-cloudy'],
+  WeatherIconNames.rain,
+  WeatherIconNames.snow,
+  WeatherIconNames.storm,
+  WeatherIconNames.sunny,
+]);
+
+export const Days = {
+  monday: 'Monday',
+  tuesday: 'Tuesday',
+  wednesday: 'Wednesday',
+  thursday: 'Thursday',
+  friday: 'Friday',
+  saturday: 'Saturday',
+  sunday: 'Sunday',
+} as const;
+
+export const DaysSchema = z.enum([
+  Days.monday,
+  Days.tuesday,
+  Days.wednesday,
+  Days.thursday,
+  Days.friday,
+  Days.saturday,
+  Days.sunday,
+]);
+
+export type Day = z.infer<typeof DaysSchema>;
+
+export type WeatherIconName = z.infer<typeof WeatherIconNamesSchema>;
