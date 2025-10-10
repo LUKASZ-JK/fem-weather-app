@@ -31,25 +31,25 @@ const UnitsSelector = () => {
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
           <Button
-            variant="outline"
+            variant="default"
             className="flex items-center gap-2 
             text-neutral
+            text-base
             bg-neutral-800 
             hover:text-neutral
-            hover:bg-neutral-700
-            active:bg-neutral-700
+            hover:bg-neutral-800
+            focus-visible:ring-0
             ">
             <img src={iconUnits} alt="Units Icon" className="w-4 h-4" />
             <span>Units</span>
-            <img
-              src={iconDropdown}
-              alt="Dropdown Icon"
-              className="w-4 h-4 ml-auto"
-            />
+            <img src={iconDropdown} alt="Dropdown Icon" />
           </Button>
         </DropdownMenuTrigger>
-        <DropdownMenuContent className="w-56" align="start">
+        <DropdownMenuContent
+          className="bg-neutral-800 text-neutral border-0 w-48 p-2"
+          align="end">
           <DropdownMenuItem
+            className="text-base mb-2 data-[highlighted]:text-neutral data-[highlighted]:bg-neutral-600"
             onClick={() =>
               setUnitsPreset(
                 units.unitsPreset === 'metric' ? 'imperial' : 'metric',
@@ -58,41 +58,55 @@ const UnitsSelector = () => {
             Switch to {units.unitsPreset === 'metric' ? 'Imperial' : 'Metric'}
           </DropdownMenuItem>
           <DropdownMenuGroup>
-            <DropdownMenuLabel>Temperature</DropdownMenuLabel>
+            <DropdownMenuLabel className="text-neutral-300 text-sm">
+              Temperature
+            </DropdownMenuLabel>
             <DropdownMenuItem
+              className="text-base data-[highlighted]:text-neutral data-[highlighted]:bg-neutral-600"
               onClick={() => setTemperature(TemperatureUnits.celsius)}>
-              Celsius
+              Celsius °C
               {units.temperature === TemperatureUnits.celsius && <Checkmark />}
             </DropdownMenuItem>
             <DropdownMenuItem
+              className="text-base data-[highlighted]:text-neutral data-[highlighted]:bg-neutral-600"
               onClick={() => setTemperature(TemperatureUnits.fahrenheit)}>
-              Fahrenheit
+              Fahrenheit °F
               {units.temperature === TemperatureUnits.fahrenheit && (
                 <Checkmark />
               )}
             </DropdownMenuItem>
           </DropdownMenuGroup>
-          <DropdownMenuSeparator />
+          <DropdownMenuSeparator className="bg-neutral-600 mx-2" />
           <DropdownMenuGroup>
-            <DropdownMenuLabel>Wind Speed</DropdownMenuLabel>
-            <DropdownMenuItem onClick={() => setWindSpeed(WindSpeedUnits.kmh)}>
+            <DropdownMenuLabel className="text-neutral-300 text-sm">
+              Wind Speed
+            </DropdownMenuLabel>
+            <DropdownMenuItem
+              className="text-base data-[highlighted]:text-neutral data-[highlighted]:bg-neutral-600"
+              onClick={() => setWindSpeed(WindSpeedUnits.kmh)}>
               km/h {units.windSpeed === WindSpeedUnits.kmh && <Checkmark />}
             </DropdownMenuItem>
-            <DropdownMenuItem onClick={() => setWindSpeed(WindSpeedUnits.mph)}>
+            <DropdownMenuItem
+              className="text-base data-[highlighted]:text-neutral data-[highlighted]:bg-neutral-600"
+              onClick={() => setWindSpeed(WindSpeedUnits.mph)}>
               mph {units.windSpeed === WindSpeedUnits.mph && <Checkmark />}
             </DropdownMenuItem>
           </DropdownMenuGroup>
-          <DropdownMenuSeparator />
+          <DropdownMenuSeparator className="bg-neutral-600 mx-2" />
           <DropdownMenuGroup>
-            <DropdownMenuLabel>Precipitation</DropdownMenuLabel>
+            <DropdownMenuLabel className="text-neutral-300 text-sm">
+              Precipitation
+            </DropdownMenuLabel>
             <DropdownMenuItem
+              className="text-base data-[highlighted]:text-neutral data-[highlighted]:bg-neutral-600"
               onClick={() => setPrecipitation(PrecipitationUnits.mm)}>
-              mm
+              Milimeters (mm)
               {units.precipitation === PrecipitationUnits.mm && <Checkmark />}
             </DropdownMenuItem>
             <DropdownMenuItem
+              className="text-base data-[highlighted]:text-neutral data-[highlighted]:bg-neutral-600"
               onClick={() => setPrecipitation(PrecipitationUnits.inch)}>
-              inch
+              Inches (in)
               {units.precipitation === PrecipitationUnits.inch && <Checkmark />}
             </DropdownMenuItem>
           </DropdownMenuGroup>

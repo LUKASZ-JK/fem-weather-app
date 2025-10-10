@@ -4,16 +4,36 @@ import CurrentWeather from './components/CurrentWeather';
 import Search from './components/Search';
 import DailyForecast from './components/DailyForecast';
 import HourlyForecast from './components/HourlyForecast';
+import logo from './assets/logo.svg';
 
 function App() {
   return (
-    <>
-      <UnitsSelector />
-      <Search />
-      <CurrentWeather />
-      <DailyForecast />
-      <HourlyForecast />
-    </>
+    <div className="bg-neutral-900 text-neutral leading-[1.2] mx-auto h-100vh min-h-screen min-w-[343px] pb-4">
+      <div className="mx-auto w-[90vw]">
+        <div className="flex justify-between items-center py-4">
+          <img
+            src={logo}
+            alt="Logo representing stylized Sun with a text 'Weather Now'"
+          />
+          <UnitsSelector />
+        </div>
+        <h1 className="text-7xl font-bold font-bricolage text-center mt-8 mb-16">
+          How's the sky looking today?
+        </h1>
+        <div className="flex items-center justify-center">
+          <Search />
+        </div>
+        <div className="flex flex-col tablet:flex-row justify-center tablet:items-start items-center gap-8 w-full">
+          <div className="flex flex-col items-center justify-center tablet:h-[650px]">
+            <CurrentWeather />
+            <DailyForecast />
+          </div>
+          <div className="w-full max-w-[343px] mobile:max-w-[800px] tablet:w-[400px] ">
+            <HourlyForecast />
+          </div>
+        </div>
+      </div>
+    </div>
   );
 }
 

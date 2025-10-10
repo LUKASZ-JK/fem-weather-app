@@ -6,6 +6,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from './ui/dropdown-menu';
+import iconDropdown from '../assets/icon-dropdown.svg';
 
 type DaySelectorProps = {
   day: Day | undefined;
@@ -18,21 +19,28 @@ const DaySelector = ({ day, handleDayChange }: DaySelectorProps) => {
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
           <Button
-            variant="outline"
+            variant="default"
             className="flex items-center gap-2 
             text-neutral
-            bg-neutral-800 
+            text-base
+            bg-neutral-600 
             hover:text-neutral
-            hover:bg-neutral-700
-            active:bg-neutral-700
+            hover:bg-neutral-600
+            focus-visible:ring-0
             ">
-            {!day ? '-' : day}
+            <span>{!day ? '-' : day}</span>
+            <img src={iconDropdown} alt="Dropdown Icon" />
           </Button>
         </DropdownMenuTrigger>
         {day && (
-          <DropdownMenuContent className="w-56" align="start">
+          <DropdownMenuContent
+            className="bg-neutral-800 text-neutral border-0 w-48 p-2"
+            align="start">
             {Object.values(Days).map(day => (
-              <DropdownMenuItem key={day} onClick={() => handleDayChange(day)}>
+              <DropdownMenuItem
+                className="text-base data-[highlighted]:text-neutral data-[highlighted]:bg-neutral-600"
+                key={day}
+                onClick={() => handleDayChange(day)}>
                 {day}
               </DropdownMenuItem>
             ))}
