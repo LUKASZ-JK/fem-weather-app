@@ -1,4 +1,6 @@
+import { useWeatherStore } from '@/stores/weatherStore';
 import WeatherIcon from './WeatherIcon';
+import { ApiStates } from '@/types';
 type DailyTileProps = {
   day: string;
   weatherCode: number;
@@ -7,13 +9,20 @@ type DailyTileProps = {
 };
 
 const DailyTile = ({ day, weatherCode, max, min }: DailyTileProps) => {
+  const { apiState } = useWeatherStore();
+
   return (
     <div className="bg-neutral-800 rounded-2xl py-4 flex flex-col text-center items-center gap-2">
-      {day}
-      <WeatherIcon weatherCode={weatherCode} size={64} />
-      <div className="flex w-full justify-space-between">
-        <span className="mx-auto">{max.toFixed(0)}°</span>
-        <span className="text-neutral-200 mx-auto">{min.toFixed(0)}°</span>
+      <div
+        className={`flex flex-col items-center w-full ${
+          apiState === ApiStates.loading ? 'invisible' : ''
+        }`}>
+        <span>{day}</span>
+        <WeatherIcon weatherCode={weatherCode} size={64} />
+        <div className="flex w-full justify-between px-4">
+          <span className="mx-auto">{max.toFixed(0)}°</span>
+          <span className="text-neutral-200 mx-auto">{min.toFixed(0)}°</span>
+        </div>
       </div>
     </div>
   );

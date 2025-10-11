@@ -1,6 +1,6 @@
 import { create } from 'zustand';
-import type { City, WeatherData, ApiState } from './types';
-import { ApiStates } from './types';
+import type { City, WeatherData, ApiState } from '../types';
+import { ApiStates } from '../types';
 
 interface WeatherStore {
   city?: City;

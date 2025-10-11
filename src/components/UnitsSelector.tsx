@@ -1,4 +1,4 @@
-import { useUnitsStore } from '../unitsStore';
+import { useUnitsStore } from '../stores/unitsStore';
 import { Button } from '@/components/ui/button';
 import iconUnits from '../assets/icon-units.svg';
 import iconDropdown from '../assets/icon-dropdown.svg';

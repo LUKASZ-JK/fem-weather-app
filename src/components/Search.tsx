@@ -1,19 +1,22 @@
 import { useState, useRef } from 'react';
 import { Button } from './ui/button';
-import type { City } from '@/types';
-import { useWeatherStore } from '@/weatherStore';
+import { ApiStates, type City } from '@/types';
+import { useWeatherStore } from '@/stores/weatherStore';
 import cityService from '@/services/city';
 import weatherService from '@/services/weather';
 import { Input } from './ui/input';
 import iconSearch from '../assets/icon-search.svg';
+import iconLoading from '../assets/icon-loading.svg';
 
 const Search = () => {
   const [query, setQuery] = useState('');
   const [cities, setCities] = useState<City[]>([]);
   const [showSearchResult, setShowSearchResult] = useState(false);
 
-  const { setCity, setWeatherData, setApiState } = useWeatherStore();
+  const { apiState, setCity, setWeatherData, setApiState } = useWeatherStore();
   const searchTimeoutRef = useRef<number | null>(null);
+
+  let content = <></>;
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setQuery(e.target.value);
@@ -39,6 +42,7 @@ const Search = () => {
     setShowSearchResult(true);
     setApiState('loading');
     try {
+      await new Promise(resolve => setTimeout(resolve, 500));
       const cities = await cityService.getCities(query);
       setQuery('');
       setCities(cities);
@@ -53,6 +57,7 @@ const Search = () => {
     setShowSearchResult(false);
     setApiState('loading');
     try {
+      await new Promise(resolve => setTimeout(resolve, 5000));
       const weatherData = await weatherService.getWeather(city);
       setWeatherData(weatherData);
       setApiState('success');
@@ -61,6 +66,34 @@ const Search = () => {
       console.error(error);
     }
   };
+
+  if (apiState === ApiStates.loading) {
+    content = (
+      <div className="p-2">
+        <img
+          src={iconLoading}
+          alt="Units Icon"
+          className="w-4 h-4 inline mr-4"
+        />
+        <span>Search in progress</span>
+      </div>
+    );
+  } else if (cities) {
+    content = (
+      <>
+        {cities.map(city => (
+          <div
+            className="text-base hover:bg-neutral-700 hover:rounded-[10px] p-2"
+            key={city.id}
+            onClick={() => handleCitySelect(city)}>
+            <span>
+              {city.name}, {city.admin1} {city.country}
+            </span>
+          </div>
+        ))}
+      </>
+    );
+  }
 
   return (
     <div className="flex flex-col relative mb-8 justify-center items-center">
@@ -89,16 +122,7 @@ const Search = () => {
 
       {showSearchResult && (
         <div className="bg-neutral-800 text-neutral border-0 p-2 rounded-xl w-full tablet:w-85/100 absolute top-16 left-0 z-1 max-h-150 overflow-y-auto">
-          {cities.map(city => (
-            <div
-              className="text-base hover:bg-neutral-700 hover:rounded-[10px] p-2"
-              key={city.id}
-              onClick={() => handleCitySelect(city)}>
-              <span>
-                {city.name}, {city.admin1} {city.country}
-              </span>
-            </div>
-          ))}
+          {content}
         </div>
       )}
 
