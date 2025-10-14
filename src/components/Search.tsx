@@ -46,6 +46,7 @@ const Search = () => {
       const cities = await cityService.getCities(query);
       setQuery('');
       setCities(cities);
+
       setApiState('success');
     } catch {
       setApiState('error');
@@ -82,14 +83,22 @@ const Search = () => {
     content = (
       <>
         {cities.map(city => (
-          <div
-            className="text-base hover:bg-neutral-700 hover:rounded-[10px] p-2"
+          <button
+            className="block w-full text-left text-base p-2   
+          hover:bg-neutral-700 hover:rounded-[10px]
+          focus:rounded-[10px]
+          focus-visible:outline-none
+          focus-visible:bg-neutral-800 
+            focus-visible:ring-2 
+          focus-visible:ring-neutral 
+            focus-visible:ring-offset-3 
+          focus-visible:ring-offset-neutral-800"
             key={city.id}
             onClick={() => handleCitySelect(city)}>
             <span>
               {city.name}, {city.admin1} {city.country}
             </span>
-          </div>
+          </button>
         ))}
       </>
     );
@@ -105,7 +114,7 @@ const Search = () => {
             className="absolute left-3 top-1/2 -translate-y-1/2"
           />
           <Input
-            className="bg-neutral-800 text-neutral-200 text-xl p-6 focus:bg-neutral-700 border-0 focus-visible:ring-0 pl-12"
+            className="bg-neutral-800 text-neutral-200 text-xl p-6 pl-12 border-0 hover:bg-neutral-700 focus-visible:ring-2 focus-visible:ring-neutral focus-visible:ring-offset-3 focus-visible:ring-offset-neutral-900 "
             type="text"
             placeholder="Search for a place..."
             value={query}
@@ -114,14 +123,16 @@ const Search = () => {
           />
         </div>
         <Button
-          className="bg-blue-500 hover:bg-blue-700 text-xl  w-full mobile:w-auto mx-auto mobile:mr-0 mobile:ml-auto p-6 "
+          className="bg-blue-500 hover:bg-blue-700 text-xl  w-full mobile:w-auto mx-auto mobile:mr-0 mobile:ml-auto p-6 focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-3 focus-visible:ring-offset-neutral-900 "
           onClick={handleClick}>
           Search
         </Button>
       </div>
 
       {showSearchResult && (
-        <div className="bg-neutral-800 text-neutral border-0 p-2 rounded-xl w-full tablet:w-85/100 absolute top-16 left-0 z-1 max-h-150 overflow-y-auto">
+        <div
+          className="bg-neutral-800 text-neutral border-0 p-2 rounded-xl w-full tablet:w-85/100 absolute top-16 left-0 z-1 max-h-150 overflow-y-auto"
+          role="listbox">
           {content}
         </div>
       )}

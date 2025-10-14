@@ -7,12 +7,12 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuGroup,
-  DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { PrecipitationUnits, TemperatureUnits, WindSpeedUnits } from '@/types';
+import StyledDropdownMenuItem from './ui/styled-dropdown-menu-item';
 
 const Checkmark = () => (
   <img src={iconCheckkmark} alt="Checkmark Icon" className="w-4 h-4 ml-auto" />
@@ -48,67 +48,61 @@ const UnitsSelector = () => {
         <DropdownMenuContent
           className="bg-neutral-800 text-neutral border-0 w-48 p-2"
           align="end">
-          <DropdownMenuItem
-            className="text-base mb-2 data-[highlighted]:text-neutral data-[highlighted]:bg-neutral-600"
+          <StyledDropdownMenuItem
+            className="mb-2"
             onClick={() =>
               setUnitsPreset(
                 units.unitsPreset === 'metric' ? 'imperial' : 'metric',
               )
             }>
             Switch to {units.unitsPreset === 'metric' ? 'Imperial' : 'Metric'}
-          </DropdownMenuItem>
+          </StyledDropdownMenuItem>
           <DropdownMenuGroup>
             <DropdownMenuLabel className="text-neutral-300 text-sm">
               Temperature
             </DropdownMenuLabel>
-            <DropdownMenuItem
-              className="text-base data-[highlighted]:text-neutral data-[highlighted]:bg-neutral-600"
+            <StyledDropdownMenuItem
               onClick={() => setTemperature(TemperatureUnits.celsius)}>
               Celsius °C
               {units.temperature === TemperatureUnits.celsius && <Checkmark />}
-            </DropdownMenuItem>
-            <DropdownMenuItem
-              className="text-base data-[highlighted]:text-neutral data-[highlighted]:bg-neutral-600"
+            </StyledDropdownMenuItem>
+            <StyledDropdownMenuItem
               onClick={() => setTemperature(TemperatureUnits.fahrenheit)}>
               Fahrenheit °F
               {units.temperature === TemperatureUnits.fahrenheit && (
                 <Checkmark />
               )}
-            </DropdownMenuItem>
+            </StyledDropdownMenuItem>
           </DropdownMenuGroup>
           <DropdownMenuSeparator className="bg-neutral-600 mx-2" />
           <DropdownMenuGroup>
             <DropdownMenuLabel className="text-neutral-300 text-sm">
               Wind Speed
             </DropdownMenuLabel>
-            <DropdownMenuItem
-              className="text-base data-[highlighted]:text-neutral data-[highlighted]:bg-neutral-600"
+            <StyledDropdownMenuItem
               onClick={() => setWindSpeed(WindSpeedUnits.kmh)}>
               km/h {units.windSpeed === WindSpeedUnits.kmh && <Checkmark />}
-            </DropdownMenuItem>
-            <DropdownMenuItem
-              className="text-base data-[highlighted]:text-neutral data-[highlighted]:bg-neutral-600"
+            </StyledDropdownMenuItem>
+            <StyledDropdownMenuItem
               onClick={() => setWindSpeed(WindSpeedUnits.mph)}>
               mph {units.windSpeed === WindSpeedUnits.mph && <Checkmark />}
-            </DropdownMenuItem>
+            </StyledDropdownMenuItem>
           </DropdownMenuGroup>
           <DropdownMenuSeparator className="bg-neutral-600 mx-2" />
           <DropdownMenuGroup>
             <DropdownMenuLabel className="text-neutral-300 text-sm">
               Precipitation
             </DropdownMenuLabel>
-            <DropdownMenuItem
-              className="text-base data-[highlighted]:text-neutral data-[highlighted]:bg-neutral-600"
+            <StyledDropdownMenuItem
               onClick={() => setPrecipitation(PrecipitationUnits.mm)}>
               Milimeters (mm)
               {units.precipitation === PrecipitationUnits.mm && <Checkmark />}
-            </DropdownMenuItem>
-            <DropdownMenuItem
-              className="text-base data-[highlighted]:text-neutral data-[highlighted]:bg-neutral-600"
+            </StyledDropdownMenuItem>
+            <StyledDropdownMenuItem
               onClick={() => setPrecipitation(PrecipitationUnits.inch)}>
               Inches (in)
               {units.precipitation === PrecipitationUnits.inch && <Checkmark />}
-            </DropdownMenuItem>
+            </StyledDropdownMenuItem>
           </DropdownMenuGroup>
         </DropdownMenuContent>
       </DropdownMenu>

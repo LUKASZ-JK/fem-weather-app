@@ -12,7 +12,7 @@ function App() {
   const { city, apiState } = useWeatherStore();
 
   return (
-    <div className="bg-neutral-900 text-neutral leading-[1.2] mx-auto h-100vh min-h-screen min-w-[343px] pb-4">
+    <div className="bg-neutral-900 text-neutral leading-[1.2] mx-auto min-h-screen min-h-[100dvh] min-w-[343px] pb-4">
       <div className="mx-auto w-[90vw]">
         <div className="flex justify-between items-center py-4">
           <img

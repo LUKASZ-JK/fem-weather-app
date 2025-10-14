@@ -38,7 +38,12 @@ const DaySelector = ({ day, handleDayChange }: DaySelectorProps) => {
             align="start">
             {Object.values(Days).map(day => (
               <DropdownMenuItem
-                className="text-base data-[highlighted]:text-neutral data-[highlighted]:bg-neutral-600"
+                className="text-base data-[highlighted]:text-neutral data-[highlighted]:bg-neutral-600 
+              [&:focus-visible:not(:hover)]:bg-neutral-800 
+                [&:focus-visible:not(:hover)]:ring-2 
+              [&:focus-visible:not(:hover)]:ring-neutral 
+                [&:focus-visible:not(:hover)]:ring-offset-3 
+              [&:focus-visible:not(:hover)]:ring-offset-neutral-800"
                 key={day}
                 onClick={() => handleDayChange(day)}>
                 {day}
