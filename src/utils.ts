@@ -14,7 +14,6 @@ export const assertNever = (value: never): never => {
 };
 
 export const handleApiError = (error: unknown): string => {
-  console.log(error);
   if (axios.isAxiosError(error)) {
     return `Axios error: ${error.message}`;
   } else if (error instanceof z.ZodError) {

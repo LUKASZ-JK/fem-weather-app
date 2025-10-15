@@ -48,18 +48,6 @@ const getWeather = async (city: City): Promise<WeatherData> => {
   // Process first location. Add a for-loop for multiple locations or weather models
   const response = responses[0];
 
-  // Attributes for timezone and location
-  const latitude = response.latitude();
-  const longitude = response.longitude();
-  const elevation = response.elevation();
-  //const utcOffsetSeconds = response.utcOffsetSeconds();
-
-  console.log(
-    `\nCoordinates: ${latitude}°N ${longitude}°E`,
-    `\nElevation: ${elevation}m asl`,
-    // `\nTimezone difference to GMT+0: ${utcOffsetSeconds}s`,
-  );
-
   const current = response.current()!;
   const hourly = response.hourly()!;
   const daily = response.daily()!;
@@ -102,19 +90,6 @@ const getWeather = async (city: City): Promise<WeatherData> => {
       weather_code: daily.variables(2)!.valuesArray(),
     },
   };
-
-  // 'weatherData' now contains a simple structure with arrays with datetime and weather data
-  // console.log(
-  //   `\nCurrent time: ${weatherData.current.time}`,
-  //   `\nCurrent temperature_2m: ${weatherData.current.temperature_2m}`,
-  //   `\nCurrent weather_code: ${weatherData.current.weather_code}`,
-  //   `\nCurrent relative_humidity_2m: ${weatherData.current.relative_humidity_2m}`,
-  //   `\nCurrent precipitation: ${weatherData.current.precipitation}`,
-  //   `\nCurrent wind_speed_10m: ${weatherData.current.wind_speed_10m}`,
-  //   `\nCurrent apparent_temperature: ${weatherData.current.apparent_temperature}`,
-  // );
-  // console.log('\nHourly data', weatherData.hourly);
-  // console.log('\nDaily data', weatherData.daily);
 
   try {
     const results = weatherDataSchema.parse(weatherData);

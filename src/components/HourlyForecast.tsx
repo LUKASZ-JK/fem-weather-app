@@ -26,7 +26,7 @@ const HourlyForecast = () => {
   const hourly = weatherData?.hourly;
   let hourlyTiles = [<></>];
 
-  if (apiState === ApiStates.loading) {
+  if (apiState === ApiStates.loadingWeather) {
     hourlyTiles = Array.from({ length: 12 }).map((_, i) => (
       <HourlyTile key={i} time="12 PM" weatherCode={0} temperature={0} />
     ));

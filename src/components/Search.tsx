@@ -10,10 +10,10 @@ import iconLoading from '../assets/icon-loading.svg';
 
 const Search = () => {
   const [query, setQuery] = useState('');
-  const [cities, setCities] = useState<City[]>([]);
   const [showSearchResult, setShowSearchResult] = useState(false);
 
-  const { apiState, setCity, setWeatherData, setApiState } = useWeatherStore();
+  const { cities, apiState, setCity, setCities, setWeatherData, setApiState } =
+    useWeatherStore();
   const searchTimeoutRef = useRef<number | null>(null);
 
   let content = <></>;
@@ -38,15 +38,19 @@ const Search = () => {
   };
 
   const handleSearch = async (query: string) => {
+    if (query.length < 2) return;
     setCities([]);
     setShowSearchResult(true);
-    setApiState('loading');
+    setApiState(ApiStates.loadingCities);
     try {
-      await new Promise(resolve => setTimeout(resolve, 500));
+      // await new Promise(resolve => setTimeout(resolve, 500));
       const cities = await cityService.getCities(query);
+      if (cities.length === 0) {
+        setCity(undefined);
+        setShowSearchResult(false);
+      }
       setQuery('');
       setCities(cities);
-
       setApiState('success');
     } catch {
       setApiState('error');
@@ -56,24 +60,23 @@ const Search = () => {
   const handleCitySelect = async (city: City) => {
     setCity(city);
     setShowSearchResult(false);
-    setApiState('loading');
+    setApiState(ApiStates.loadingWeather);
     try {
-      await new Promise(resolve => setTimeout(resolve, 5000));
+      // await new Promise(resolve => setTimeout(resolve, 5000));
       const weatherData = await weatherService.getWeather(city);
       setWeatherData(weatherData);
       setApiState('success');
-    } catch (error) {
+    } catch {
       setApiState('error');
-      console.error(error);
     }
   };
 
-  if (apiState === ApiStates.loading) {
+  if (apiState === ApiStates.loadingCities) {
     content = (
       <div className="p-2">
         <img
           src={iconLoading}
-          alt="Units Icon"
+          alt="Loading Icon"
           className="w-4 h-4 inline mr-4"
         />
         <span>Search in progress</span>

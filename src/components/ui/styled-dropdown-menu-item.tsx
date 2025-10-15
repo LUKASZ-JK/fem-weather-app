@@ -1,16 +1,16 @@
 import { DropdownMenuItem } from '@/components/ui/dropdown-menu';
+import type { PropsWithChildren } from 'react';
 
 type StyledDropdownMenuItemProps = {
   onClick?: () => void;
-  children: React.ReactNode;
   className?: string;
 };
 
-const StyledDropdownMenuItem: React.FC<StyledDropdownMenuItemProps> = ({
+const StyledDropdownMenuItem = ({
   onClick,
   children,
   className = '',
-}) => {
+}: PropsWithChildren<StyledDropdownMenuItemProps>) => {
   return (
     <DropdownMenuItem
       onClick={onClick}

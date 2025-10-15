@@ -15,7 +15,7 @@ const HourlyTile = ({ weatherCode, time, temperature }: HourTileProps) => {
     <div className="bg-neutral-700 rounded-2xl py-2 mr-4 flex flex-row text-center items-center gap-2">
       <div
         className={`flex flex-row items-center w-full ${
-          apiState === ApiStates.loading ? 'invisible' : ''
+          apiState === ApiStates.loadingWeather ? 'invisible' : ''
         }`}>
         <WeatherIcon weatherCode={weatherCode} size={64} />
         <span className="text-xl">{time}</span>

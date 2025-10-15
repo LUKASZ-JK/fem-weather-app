@@ -21,7 +21,7 @@ const CurrentWeather = () => {
 
   const currentWeatherData = weatherData?.current;
 
-  if (apiState === ApiStates.loading) {
+  if (apiState === ApiStates.loadingWeather) {
     content = (
       <div className="absolute inset-0 flex flex-col justify-center items-center gap-4">
         <Spinner className="size-8" />
@@ -81,11 +81,11 @@ const CurrentWeather = () => {
       <div className="relative bg-neutral-800 rounded-[20px]">
         <img
           src={bgSmall}
-          className={`block mobile:hidden ${apiState === ApiStates.loading ? 'invisible' : ''}`}
+          className={`block mobile:hidden ${apiState === ApiStates.loadingWeather ? 'invisible' : ''}`}
         />
         <img
           src={bgLarge}
-          className={`hidden mobile:block ${apiState === ApiStates.loading ? 'invisible' : ''}`}
+          className={`hidden mobile:block ${apiState === ApiStates.loadingWeather ? 'invisible' : ''}`}
         />
         {content}
       </div>

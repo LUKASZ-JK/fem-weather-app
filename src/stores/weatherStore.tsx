@@ -4,10 +4,12 @@ import { ApiStates } from '../types';
 
 interface WeatherStore {
   city?: City;
+  cities?: City[];
   weatherData?: WeatherData;
   apiState: ApiState;
 
-  setCity: (city: City) => void;
+  setCity: (city: City | undefined) => void;
+  setCities: (cities: City[]) => void;
   setWeatherData: (data: WeatherData) => void;
   setApiState: (state: ApiState) => void;
 
@@ -16,10 +18,12 @@ interface WeatherStore {
 
 export const useWeatherStore = create<WeatherStore>(set => ({
   city: undefined,
+  cities: [],
   weatherData: undefined,
   apiState: ApiStates.idle,
 
   setCity: city => set({ city }),
+  setCities: cities => set({ cities }),
   setWeatherData: data => set({ weatherData: data }),
   setApiState: apiState => set({ apiState }),
 

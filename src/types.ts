@@ -25,7 +25,7 @@ export const CitySchema = z.object({
   admin3_id: z.number().optional(),
 });
 
-export const CitiesSchema = z.array(CitySchema);
+export const CitiesSchema = z.array(CitySchema).default([]);
 
 export type City = z.infer<typeof CitySchema>;
 
@@ -82,14 +82,16 @@ export type Units = z.infer<typeof UnitsSchema>;
 
 export const ApiStates = {
   idle: 'idle',
-  loading: 'loading',
+  loadingCities: 'loadingCities',
+  loadingWeather: 'loadingWeather',
   success: 'success',
   error: 'error',
 } as const;
 
 export const ApiStateSchema = z.enum([
   ApiStates.idle,
-  ApiStates.loading,
+  ApiStates.loadingCities,
+  ApiStates.loadingWeather,
   ApiStates.success,
   ApiStates.error,
 ]);

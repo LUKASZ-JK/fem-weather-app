@@ -12,7 +12,7 @@ const DailyForecast = () => {
 
   let dailyTiles = [<></>];
 
-  if (apiState === ApiStates.loading) {
+  if (apiState === ApiStates.loadingWeather) {
     dailyTiles = Array.from({ length: 7 }).map((_, i) => (
       <DailyTile key={i} day="Day" weatherCode={0} max={0} min={0} />
     ));
