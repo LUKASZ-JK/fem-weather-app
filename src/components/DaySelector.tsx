@@ -45,7 +45,9 @@ const DaySelector = ({ day, handleDayChange }: DaySelectorProps) => {
                 [&:focus-visible:not(:hover)]:ring-offset-3 
               [&:focus-visible:not(:hover)]:ring-offset-neutral-800"
                 key={day}
-                onClick={() => handleDayChange(day)}>
+                onClick={() => {
+                  handleDayChange(day);
+                }}>
                 {day}
               </DropdownMenuItem>
             ))}

@@ -3,6 +3,7 @@ import DailyTile from './DailyTile';
 import { convertTemperature } from '@/utils';
 import { useUnitsStore } from '@/stores/unitsStore';
 import { ApiStates } from '@/types';
+import type { JSX } from 'react';
 
 const DailyForecast = () => {
   const { city, weatherData, apiState } = useWeatherStore();
@@ -10,7 +11,7 @@ const DailyForecast = () => {
 
   const daily = weatherData?.daily;
 
-  let dailyTiles = [<></>];
+  let dailyTiles: JSX.Element[] = [];
 
   if (apiState === ApiStates.loadingWeather) {
     dailyTiles = Array.from({ length: 7 }).map((_, i) => (

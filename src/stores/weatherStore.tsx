@@ -22,15 +22,24 @@ export const useWeatherStore = create<WeatherStore>(set => ({
   weatherData: undefined,
   apiState: ApiStates.idle,
 
-  setCity: city => set({ city }),
-  setCities: cities => set({ cities }),
-  setWeatherData: data => set({ weatherData: data }),
-  setApiState: apiState => set({ apiState }),
+  setCity: city => {
+    set({ city });
+  },
+  setCities: cities => {
+    set({ cities });
+  },
+  setWeatherData: data => {
+    set({ weatherData: data });
+  },
+  setApiState: apiState => {
+    set({ apiState });
+  },
 
-  reset: () =>
+  reset: () => {
     set({
       city: undefined,
       weatherData: undefined,
       apiState: ApiStates.idle,
-    }),
+    });
+  },
 }));

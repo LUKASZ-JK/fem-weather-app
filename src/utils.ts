@@ -17,9 +17,13 @@ export const handleApiError = (error: unknown): string => {
   if (axios.isAxiosError(error)) {
     return `Axios error: ${error.message}`;
   } else if (error instanceof z.ZodError) {
-    return `Validation issue: ${error.issues}`;
+    return `Validation issue: ${JSON.stringify(error.issues, null, 2)}`;
   } else {
-    return 'Something went wrong';
+    let errorMessage = 'Something went wrong: ';
+    if (error instanceof Error) {
+      errorMessage += error.message;
+    }
+    return errorMessage;
   }
 };
 

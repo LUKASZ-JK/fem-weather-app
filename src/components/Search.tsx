@@ -25,7 +25,7 @@ const Search = () => {
       clearTimeout(searchTimeoutRef.current);
     }
     searchTimeoutRef.current = setTimeout(() => {
-      handleSearch(e.target.value);
+      void handleSearch(e.target.value);
     }, 1000);
   };
 
@@ -34,7 +34,7 @@ const Search = () => {
       clearTimeout(searchTimeoutRef.current);
       searchTimeoutRef.current = null;
     }
-    handleSearch(query);
+    void handleSearch(query);
   };
 
   const handleSearch = async (query: string) => {
@@ -97,7 +97,7 @@ const Search = () => {
             focus-visible:ring-offset-3 
           focus-visible:ring-offset-neutral-800"
             key={city.id}
-            onClick={() => handleCitySelect(city)}>
+            onClick={() => void handleCitySelect(city)}>
             <span>
               {city.name}, {city.admin1} {city.country}
             </span>

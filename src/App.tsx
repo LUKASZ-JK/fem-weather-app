@@ -41,7 +41,9 @@ function App() {
             </span>
             <Button
               className="bg-neutral-800 hover:bg-neutral-600 text-base mx-auto p-6 focus-visible:ring-2 focus-visible:ring-neutral-800 focus-visible:ring-offset-3 focus-visible:ring-offset-neutral-900 "
-              onClick={() => location.reload()}>
+              onClick={() => {
+                location.reload();
+              }}>
               <img src={iconRetry} alt="Spinning circle" />
               Retry
             </Button>
@@ -61,7 +63,7 @@ function App() {
             )}
             {city && (
               <div className="flex flex-col tablet:flex-row justify-center tablet:items-start items-center gap-8 w-full">
-                <div className="flex flex-col items-center justify-center tablet:h-[650px]">
+                <div className="flex flex-col items-center justify-between tablet:h-[650px]">
                   <CurrentWeather />
                   <DailyForecast />
                 </div>

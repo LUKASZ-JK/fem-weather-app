@@ -39,7 +39,7 @@ const CurrentWeather = () => {
       units.temperature,
     );
 
-    humidity = currentWeatherData?.relative_humidity_2m;
+    humidity = currentWeatherData.relative_humidity_2m;
 
     wind = convertWind(weatherData.current.wind_speed_10m, units.windSpeed);
 
@@ -66,7 +66,7 @@ const CurrentWeather = () => {
         </div>
         <div className="flex font-semibold italic tracking-tight items-center text-8xl">
           <WeatherIcon
-            weatherCode={currentWeatherData?.weather_code}
+            weatherCode={currentWeatherData.weather_code}
             size={128}
           />
           {temperature.toFixed(0)}
@@ -89,7 +89,7 @@ const CurrentWeather = () => {
         />
         {content}
       </div>
-      <div className="mt-6 grid grid-cols-2 grid-rows-2 gap-4 mobile:grid-cols-4 mobile:grid-rows-1">
+      <div className="mt-8 grid grid-cols-2 grid-rows-2 gap-4 mobile:grid-cols-4 mobile:grid-rows-1">
         <ConditionTile
           title={'Feels like'}
           value={apparentTemperature}

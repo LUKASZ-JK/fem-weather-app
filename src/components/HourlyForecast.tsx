@@ -5,6 +5,7 @@ import { useWeatherStore } from '@/stores/weatherStore';
 import HourlyTile from './HourlyTile';
 import { convertTemperature } from '@/utils';
 import { useUnitsStore } from '@/stores/unitsStore';
+import type { JSX } from 'react';
 
 const HourlyForecast = () => {
   const { city, weatherData, apiState } = useWeatherStore();
@@ -24,7 +25,7 @@ const HourlyForecast = () => {
   }, [weatherData, city?.timezone]);
 
   const hourly = weatherData?.hourly;
-  let hourlyTiles = [<></>];
+  let hourlyTiles: JSX.Element[] = [];
 
   if (apiState === ApiStates.loadingWeather) {
     hourlyTiles = Array.from({ length: 12 }).map((_, i) => (

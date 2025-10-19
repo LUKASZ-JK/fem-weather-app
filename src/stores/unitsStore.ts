@@ -51,20 +51,25 @@ export const useUnitsStore = create<UnitsStore>(set => ({
     });
   },
 
-  setUnits: units => set({ units }),
+  setUnits: units => {
+    set({ units });
+  },
 
-  setTemperature: temperature =>
+  setTemperature: temperature => {
     set(state => ({
       units: { ...state.units, temperature },
-    })),
+    }));
+  },
 
-  setWindSpeed: windSpeed =>
+  setWindSpeed: windSpeed => {
     set(state => ({
       units: { ...state.units, windSpeed },
-    })),
+    }));
+  },
 
-  setPrecipitation: precipitation =>
+  setPrecipitation: precipitation => {
     set(state => ({
       units: { ...state.units, precipitation },
-    })),
+    }));
+  },
 }));

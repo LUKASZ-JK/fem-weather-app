@@ -16,7 +16,7 @@ const ConditionTile = ({ title, value, units }: ConditionTileProps) => {
       <span className="text-3xl">
         {apiState === ApiStates.loadingWeather
           ? '-'
-          : `${value?.toFixed(0)} ${units}`}
+          : `${value?.toFixed(0) ?? ''} ${units}`}
       </span>
     </div>
   );

@@ -50,11 +50,11 @@ const UnitsSelector = () => {
           align="end">
           <StyledDropdownMenuItem
             className="mb-2"
-            onClick={() =>
+            onClick={() => {
               setUnitsPreset(
                 units.unitsPreset === 'metric' ? 'imperial' : 'metric',
-              )
-            }>
+              );
+            }}>
             Switch to {units.unitsPreset === 'metric' ? 'Imperial' : 'Metric'}
           </StyledDropdownMenuItem>
           <DropdownMenuGroup>
@@ -62,12 +62,16 @@ const UnitsSelector = () => {
               Temperature
             </DropdownMenuLabel>
             <StyledDropdownMenuItem
-              onClick={() => setTemperature(TemperatureUnits.celsius)}>
+              onClick={() => {
+                setTemperature(TemperatureUnits.celsius);
+              }}>
               Celsius °C
               {units.temperature === TemperatureUnits.celsius && <Checkmark />}
             </StyledDropdownMenuItem>
             <StyledDropdownMenuItem
-              onClick={() => setTemperature(TemperatureUnits.fahrenheit)}>
+              onClick={() => {
+                setTemperature(TemperatureUnits.fahrenheit);
+              }}>
               Fahrenheit °F
               {units.temperature === TemperatureUnits.fahrenheit && (
                 <Checkmark />
@@ -80,11 +84,15 @@ const UnitsSelector = () => {
               Wind Speed
             </DropdownMenuLabel>
             <StyledDropdownMenuItem
-              onClick={() => setWindSpeed(WindSpeedUnits.kmh)}>
+              onClick={() => {
+                setWindSpeed(WindSpeedUnits.kmh);
+              }}>
               km/h {units.windSpeed === WindSpeedUnits.kmh && <Checkmark />}
             </StyledDropdownMenuItem>
             <StyledDropdownMenuItem
-              onClick={() => setWindSpeed(WindSpeedUnits.mph)}>
+              onClick={() => {
+                setWindSpeed(WindSpeedUnits.mph);
+              }}>
               mph {units.windSpeed === WindSpeedUnits.mph && <Checkmark />}
             </StyledDropdownMenuItem>
           </DropdownMenuGroup>
@@ -94,12 +102,16 @@ const UnitsSelector = () => {
               Precipitation
             </DropdownMenuLabel>
             <StyledDropdownMenuItem
-              onClick={() => setPrecipitation(PrecipitationUnits.mm)}>
+              onClick={() => {
+                setPrecipitation(PrecipitationUnits.mm);
+              }}>
               Milimeters (mm)
               {units.precipitation === PrecipitationUnits.mm && <Checkmark />}
             </StyledDropdownMenuItem>
             <StyledDropdownMenuItem
-              onClick={() => setPrecipitation(PrecipitationUnits.inch)}>
+              onClick={() => {
+                setPrecipitation(PrecipitationUnits.inch);
+              }}>
               Inches (in)
               {units.precipitation === PrecipitationUnits.inch && <Checkmark />}
             </StyledDropdownMenuItem>
