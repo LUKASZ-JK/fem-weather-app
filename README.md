@@ -46,6 +46,7 @@ Users should be able to:
 
 - [React](https://react.dev/)
 - [TypeScript](https://www.typescriptlang.org/)
+- [Zustand](https://zustand-demo.pmnd.rs/) - State management
 - [shadcn](https://ui.shadcn.com/) - Pre-built components
 - [Tailwind CSS](https://tailwindcss.com/) - Styling
 - [Zod](https://zod.dev/) - For schema validation

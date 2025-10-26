@@ -96,6 +96,7 @@ const Search = () => {
           focus-visible:ring-neutral 
             focus-visible:ring-offset-3 
           focus-visible:ring-offset-neutral-800"
+            type="submit"
             key={city.id}
             onClick={() => void handleCitySelect(city)}>
             <span>
@@ -127,6 +128,7 @@ const Search = () => {
         </div>
         <Button
           className="bg-blue-500 hover:bg-blue-700 text-xl  w-full mobile:w-auto mx-auto mobile:mr-0 mobile:ml-auto p-6 focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-3 focus-visible:ring-offset-neutral-900 "
+          type="submit"
           onClick={handleClick}>
           Search
         </Button>

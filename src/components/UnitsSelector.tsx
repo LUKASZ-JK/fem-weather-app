@@ -39,7 +39,8 @@ const UnitsSelector = () => {
             hover:text-neutral
             hover:bg-neutral-800
             focus-visible:ring-0
-            ">
+            "
+            type="button">
             <img src={iconUnits} alt="Units Icon" className="w-4 h-4" />
             <span>Units</span>
             <img src={iconDropdown} alt="Dropdown Icon" />

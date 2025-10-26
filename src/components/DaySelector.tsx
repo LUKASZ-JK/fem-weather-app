@@ -27,7 +27,8 @@ const DaySelector = ({ day, handleDayChange }: DaySelectorProps) => {
             hover:text-neutral
             hover:bg-neutral-600
             focus-visible:ring-0
-            ">
+            "
+            type="button">
             <span>{!day ? '-' : day}</span>
             <img src={iconDropdown} alt="Dropdown Icon" />
           </Button>
