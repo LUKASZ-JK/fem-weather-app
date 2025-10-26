@@ -14,7 +14,7 @@ const Search = () => {
 
   const { cities, apiState, setCity, setCities, setWeatherData, setApiState } =
     useWeatherStore();
-  const searchTimeoutRef = useRef<number | null>(null);
+  const searchTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   let content = <></>;
 
@@ -118,7 +118,7 @@ const Search = () => {
             className="absolute left-3 top-1/2 -translate-y-1/2"
           />
           <Input
-            className="bg-neutral-800 text-neutral-200 text-xl p-6 pl-12 border-0 hover:bg-neutral-700 focus-visible:ring-2 focus-visible:ring-neutral focus-visible:ring-offset-3 focus-visible:ring-offset-neutral-900 "
+            className="bg-neutral-800 text-neutral-200 placeholder:text-neutral-200 text-xl p-6 pl-12 border-0 hover:bg-neutral-700 focus-visible:ring-2 focus-visible:ring-neutral focus-visible:ring-offset-3 focus-visible:ring-offset-neutral-900 "
             type="text"
             placeholder="Search for a place..."
             value={query}

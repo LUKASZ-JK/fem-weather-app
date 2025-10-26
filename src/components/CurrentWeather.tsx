@@ -24,27 +24,29 @@ const CurrentWeather = () => {
   if (apiState === ApiStates.loadingWeather) {
     content = (
       <div className="absolute inset-0 flex flex-col justify-center items-center gap-4">
-        <Spinner className="size-8" />
-        <span className="text-lg text-neutral-200">Loading...</span>
+        <Spinner data-testid="loading-spinner" className="size-8" />
+        <span data-testid="loading-text" className="text-lg text-neutral-200">
+          Loading...
+        </span>
       </div>
     );
   } else if (currentWeatherData) {
     temperature = convertTemperature(
-      weatherData.current.temperature_2m,
+      currentWeatherData.temperature_2m,
       units.temperature,
     );
 
     apparentTemperature = convertTemperature(
-      weatherData.current.apparent_temperature,
+      currentWeatherData.apparent_temperature,
       units.temperature,
     );
 
     humidity = currentWeatherData.relative_humidity_2m;
 
-    wind = convertWind(weatherData.current.wind_speed_10m, units.windSpeed);
+    wind = convertWind(currentWeatherData.wind_speed_10m, units.windSpeed);
 
     precipation = convertPrecipation(
-      weatherData.current.precipitation,
+      currentWeatherData.precipitation,
       units.precipitation,
     );
 
@@ -55,7 +57,7 @@ const CurrentWeather = () => {
             {city?.name}, {city?.country}
           </span>
           <span className="opacity-80">
-            {weatherData.current.time.toLocaleDateString(undefined, {
+            {currentWeatherData.time.toLocaleDateString(undefined, {
               timeZone: city?.timezone,
               weekday: 'long',
               month: 'short',
@@ -69,8 +71,7 @@ const CurrentWeather = () => {
             weatherCode={currentWeatherData.weather_code}
             size={128}
           />
-          {temperature.toFixed(0)}
-          {units.temperature}
+          {`${temperature.toFixed(0)} ${units.temperature}`}
         </div>
       </div>
     );
@@ -78,7 +79,9 @@ const CurrentWeather = () => {
 
   return (
     <div>
-      <div className="relative bg-neutral-800 rounded-[20px]">
+      <div
+        data-testid="current-weather-large-tile"
+        className="relative bg-neutral-800 rounded-[20px]">
         <img
           src={bgSmall}
           className={`block mobile:hidden ${apiState === ApiStates.loadingWeather ? 'invisible' : ''}`}
@@ -89,11 +92,13 @@ const CurrentWeather = () => {
         />
         {content}
       </div>
-      <div className="mt-8 grid grid-cols-2 grid-rows-2 gap-4 mobile:grid-cols-4 mobile:grid-rows-1">
+      <div
+        data-testid="current-weather-condition-tiles"
+        className="mt-8 grid grid-cols-2 grid-rows-2 gap-4 mobile:grid-cols-4 mobile:grid-rows-1">
         <ConditionTile
           title={'Feels like'}
           value={apparentTemperature}
-          units={'°'}
+          units={units.temperature}
         />
         <ConditionTile title={'Humidity'} value={humidity} units={'%'} />
         <ConditionTile title={'Wind'} value={wind} units={units.windSpeed} />

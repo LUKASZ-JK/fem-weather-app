@@ -20,12 +20,12 @@ export const WeatherIconMap: Record<WeatherIconName, string> = {
 } as const;
 
 type WeatherIconProps = {
-  weatherCode?: number;
+  weatherCode: number;
   size: number;
 };
 
 const WeatherIcon = ({ weatherCode, size }: WeatherIconProps) => {
-  const getWeatherIcon = (code: number | undefined): WeatherIconName => {
+  const getWeatherIcon = (code: number): WeatherIconName => {
     switch (code) {
       case 0:
         return 'sunny';
@@ -73,6 +73,7 @@ const WeatherIcon = ({ weatherCode, size }: WeatherIconProps) => {
 
   return (
     <img
+      data-testid="weather-icon"
       src={icon}
       alt={iconName}
       style={{ width: size, height: size }}

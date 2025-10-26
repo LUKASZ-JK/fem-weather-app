@@ -20,7 +20,7 @@ const getCities = async (name: string, count: number = 10): Promise<City[]> => {
       );
       return results;
     }
-    throw new Error('Missing result field in Cities API');
+    return [];
   } catch (error) {
     throw new Error(handleApiError(error));
   }
