@@ -24,7 +24,11 @@ const CurrentWeather = () => {
   if (apiState === ApiStates.loadingWeather) {
     content = (
       <div className="absolute inset-0 flex flex-col justify-center items-center gap-4">
-        <Spinner data-testid="loading-spinner" className="size-8" />
+        <Spinner
+          aria-label="Loading spinner"
+          data-testid="loading-spinner"
+          className="size-8"
+        />
         <span data-testid="loading-text" className="text-lg text-neutral-200">
           Loading...
         </span>

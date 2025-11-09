@@ -44,11 +44,6 @@ export const mockUseWeatherStore = (overrides: Partial<WeatherStore> = {}) => {
   });
 };
 
-beforeEach(() => {
-  mockUseUnitsStore();
-  mockUseWeatherStore();
-});
-
 afterEach(() => {
   cleanup();
   vi.clearAllMocks();

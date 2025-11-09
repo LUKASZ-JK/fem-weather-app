@@ -3,6 +3,7 @@ import userEvent from '@testing-library/user-event';
 import { describe, it, expect, vi } from 'vitest';
 import UnitsSelector from './UnitsSelector';
 import { TemperatureUnits, WindSpeedUnits, PrecipitationUnits } from '@/types';
+import * as unitsStore from '@/stores/unitsStore';
 import { mockUseUnitsStore } from '../../testSetup';
 
 describe('UnitsSelector', () => {
@@ -45,10 +46,8 @@ describe('UnitsSelector', () => {
 
   it('displays a checkmark next to the imperial option', async () => {
     const user = userEvent.setup();
-    // Mock the state with imperial units
-    mockUseUnitsStore({
+    vi.spyOn(unitsStore, 'useUnitsStore').mockReturnValue({
       units: {
-        unitsPreset: 'imperial',
         temperature: TemperatureUnits.fahrenheit,
         windSpeed: WindSpeedUnits.mph,
         precipitation: PrecipitationUnits.inch,
