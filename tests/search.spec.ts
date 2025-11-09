@@ -1,10 +1,11 @@
 import { test, expect } from '@playwright/test';
 
 test.describe('Search Component', () => {
-  test('Displays loading state during search', async ({ page }) => {
-    // Navigate to the app's base URL
+  test.beforeEach(async ({ page }) => {
     await page.goto('/');
+  });
 
+  test('Displays loading state during search', async ({ page }) => {
     // Type a city name into the search input
     const searchInput = page.getByPlaceholder('Search for a place...');
     await searchInput.fill('Paris');
@@ -23,9 +24,6 @@ test.describe('Search Component', () => {
   test('Successful search results and weather data display', async ({
     page,
   }) => {
-    // Navigate to the app's base URL
-    await page.goto('/');
-
     // Type a valid city name into the search input
     const searchInput = page.getByRole('textbox', {
       name: 'Search for a place...',
@@ -58,9 +56,6 @@ test.describe('Search Component', () => {
   test('Displays message when no search results are found', async ({
     page,
   }) => {
-    // Navigate to the app's base URL
-    await page.goto('/');
-
     // Type a city name that does not exist
     const searchInput = page.getByPlaceholder('Search for a place...');
     await searchInput.fill('UnknownPlace');

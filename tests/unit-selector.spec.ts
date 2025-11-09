@@ -1,4 +1,5 @@
-import { Page, Locator, test, expect } from '@playwright/test';
+import { test, expect } from '@playwright/test';
+import type { Page, Locator } from '@playwright/test';
 
 async function reopenUnitsSelectorDropdown(
   page: Page,
@@ -15,20 +16,21 @@ async function reopenUnitsSelectorDropdown(
 }
 
 test.describe('Units Selector Component', () => {
-  test('Switching unit preset updates values correctly', async ({ page }) => {
-    // Navigate to the app's base URL
+  test.beforeEach(async ({ page }) => {
     await page.goto('/');
 
-    // Simulate selecting a city to display the CurrentWeather component
     const searchInput = page.getByPlaceholder('Search for a place...');
     await searchInput.fill('London');
     const searchButton = page.getByRole('button', { name: /search/i });
     await searchButton.click();
+
     const cityButton = page.getByRole('button', {
       name: /london, england united kingdom/i,
     });
     await cityButton.click();
+  });
 
+  test('Switching unit preset updates values correctly', async ({ page }) => {
     // Verify that the CurrentWeather component is visible
     const currentWeather = page.getByTestId('current-weather');
     await expect(currentWeather).toBeVisible();
@@ -86,19 +88,6 @@ test.describe('Units Selector Component', () => {
   test('Selecting singular options updates values correctly', async ({
     page,
   }) => {
-    // Navigate to the app's base URL
-    await page.goto('/');
-
-    // Simulate selecting a city to display the CurrentWeather component
-    const searchInput = page.getByPlaceholder('Search for a place...');
-    await searchInput.fill('London');
-    const searchButton = page.getByRole('button', { name: /search/i });
-    await searchButton.click();
-    const cityButton = page.getByRole('button', {
-      name: /london, england united kingdom/i,
-    });
-    await cityButton.click();
-
     // Verify that the CurrentWeather component is visible
     const currentWeather = page.getByTestId('current-weather');
     await expect(currentWeather).toBeVisible();

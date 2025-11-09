@@ -1,20 +1,21 @@
 import { test, expect } from '@playwright/test';
 
 test.describe('Hourly Forecast Component', () => {
-  test('Displays loading state with placeholder tiles', async ({ page }) => {
-    // Navigate to the app's base URL
+  test.beforeEach(async ({ page }) => {
     await page.goto('/');
 
-    // Simulate selecting a city to trigger loading state
     const searchInput = page.getByPlaceholder('Search for a place...');
     await searchInput.fill('London');
     const searchButton = page.getByRole('button', { name: /search/i });
     await searchButton.click();
+
     const cityButton = page.getByRole('button', {
       name: /london, england united kingdom/i,
     });
     await cityButton.click();
+  });
 
+  test('Displays loading state with placeholder tiles', async ({ page }) => {
     // Verify that the HourlyForecast component is visible
     const hourlyForecast = page.getByTestId('hourly-forecast');
     await expect(hourlyForecast).toBeVisible();
@@ -37,20 +38,7 @@ test.describe('Hourly Forecast Component', () => {
   test('Displays hourly tiles with time, weather icon, and temperature', async ({
     page,
   }) => {
-    // Navigate to the app's base URL
-    await page.goto('/');
-
-    // Step 1: Select a city from the search results
-    const searchInput = page.getByPlaceholder('Search for a place...');
-    await searchInput.fill('London');
-    const searchButton = page.getByRole('button', { name: /search/i });
-    await searchButton.click();
-    const cityButton = page.getByRole('button', {
-      name: /london, england united kingdom/i,
-    });
-    await cityButton.click();
-
-    // Step 2: Verify that the HourlyForecast component is visible
+    // Verify that the HourlyForecast component is visible
     const hourlyForecast = page.getByTestId('hourly-forecast');
     await expect(hourlyForecast).toBeVisible();
 
@@ -85,20 +73,7 @@ test.describe('Hourly Forecast Component', () => {
   test('Updates hourly tiles when a different day is selected', async ({
     page,
   }) => {
-    // Navigate to the app's base URL
-    await page.goto('/');
-
-    // Step 1: Select a city from the search results
-    const searchInput = page.getByPlaceholder('Search for a place...');
-    await searchInput.fill('London');
-    const searchButton = page.getByRole('button', { name: /search/i });
-    await searchButton.click();
-    const cityButton = page.getByRole('button', {
-      name: /london, england united kingdom/i,
-    });
-    await cityButton.click();
-
-    // Step 2: Verify that the HourlyForecast component is visible
+    // Verify that the HourlyForecast component is visible
     const hourlyForecast = page.getByTestId('hourly-forecast');
     await expect(hourlyForecast).toBeVisible();
 

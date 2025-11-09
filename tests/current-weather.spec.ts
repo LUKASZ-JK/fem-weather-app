@@ -1,16 +1,11 @@
 import { test, expect } from '@playwright/test';
 
 test.describe('Current Weather Component', () => {
-  test('Displays loading state correctly', async ({ page }) => {
-    // Navigate to the app's base URL
+  test.beforeEach(async ({ page }) => {
     await page.goto('/');
 
-    // Simulate loading state by triggering a search
-    const searchInput = page.getByRole('textbox', {
-      name: 'Search for a place...',
-    });
+    const searchInput = page.getByPlaceholder('Search for a place...');
     await searchInput.fill('London');
-
     const searchButton = page.getByRole('button', { name: /search/i });
     await searchButton.click();
 
@@ -18,7 +13,10 @@ test.describe('Current Weather Component', () => {
       name: /london, england united kingdom/i,
     });
     await cityButton.click();
+  });
 
+  test('Displays loading state correctly', async ({ page }) => {
+    // Verify that the current weather data is displayed correctly
     const currentWeather = page.getByTestId('current-weather');
     await expect(currentWeather).toBeVisible();
 
@@ -53,24 +51,7 @@ test.describe('Current Weather Component', () => {
   });
 
   test('Successful data retrieval and display', async ({ page }) => {
-    // Navigate to the app's base URL
-    await page.goto('/');
-
-    // Step 1: Select a city from the search results
-    const searchInput = page.getByRole('textbox', {
-      name: 'Search for a place...',
-    });
-    await searchInput.fill('London');
-
-    const searchButton = page.getByRole('button', { name: /search/i });
-    await searchButton.click();
-
-    const cityButton = page.getByRole('button', {
-      name: /london, england united kingdom/i,
-    });
-    await cityButton.click();
-
-    // Step 2: Verify that the current weather data is displayed correctly
+    // Verify that the current weather data is displayed correctly
     const currentWeather = page.getByTestId('current-weather');
     await expect(currentWeather).toBeVisible();
 

@@ -1,20 +1,21 @@
 import { test, expect } from '@playwright/test';
 
 test.describe('Daily Forecast Component', () => {
-  test('Displays loading state with placeholder tiles', async ({ page }) => {
-    // Navigate to the app's base URL
+  test.beforeEach(async ({ page }) => {
     await page.goto('/');
 
-    // Simulate selecting a city to trigger loading state
     const searchInput = page.getByPlaceholder('Search for a place...');
     await searchInput.fill('London');
     const searchButton = page.getByRole('button', { name: /search/i });
     await searchButton.click();
+
     const cityButton = page.getByRole('button', {
       name: /london, england united kingdom/i,
     });
     await cityButton.click();
+  });
 
+  test('Displays loading state with placeholder tiles', async ({ page }) => {
     // Verify that the DailyForecast component is visible
     const dailyForecast = page.getByTestId('daily-forecast');
     await expect(dailyForecast).toBeVisible();
@@ -27,19 +28,6 @@ test.describe('Daily Forecast Component', () => {
   test('Displays daily weather data for the selected city and starts with current day', async ({
     page,
   }) => {
-    // Navigate to the app's base URL
-    await page.goto('/');
-
-    // Simulate selecting a city
-    const searchInput = page.getByPlaceholder('Search for a place...');
-    await searchInput.fill('London');
-    const searchButton = page.getByRole('button', { name: /search/i });
-    await searchButton.click();
-    const cityButton = page.getByRole('button', {
-      name: /london, england united kingdom/i,
-    });
-    await cityButton.click();
-
     // Verify that the DailyForecast component is visible
     const dailyForecast = page.getByTestId('daily-forecast');
     await expect(dailyForecast).toBeVisible();
