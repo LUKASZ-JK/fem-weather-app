@@ -6,7 +6,7 @@ import {
   type Units,
 } from '@/types';
 
-interface UnitsStore {
+export interface UnitsStore {
   units: Units;
   setUnits: (units: Units) => void;
   setUnitsPreset: (unitsPreset: Units['unitsPreset']) => void;

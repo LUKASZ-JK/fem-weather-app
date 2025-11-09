@@ -2,7 +2,7 @@ import { create } from 'zustand';
 import type { City, WeatherData, ApiState } from '../types';
 import { ApiStates } from '../types';
 
-interface WeatherStore {
+export interface WeatherStore {
   city?: City;
   cities?: City[];
   weatherData?: WeatherData;

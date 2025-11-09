@@ -4,7 +4,7 @@ import { ApiStates } from '@/types';
 import ConditionTile from './ConditionTile';
 
 describe('ConditionTile', () => {
-  test('shows placeholder when weather is loading', () => {
+  it('shows placeholder when weather is loading', () => {
     vi.spyOn(weatherStore, 'useWeatherStore').mockReturnValue({
       apiState: ApiStates.loadingWeather,
     });
@@ -15,7 +15,7 @@ describe('ConditionTile', () => {
     );
   });
 
-  test('renders rounded value and units when not loading', () => {
+  it('renders rounded value and units when not loading', () => {
     vi.spyOn(weatherStore, 'useWeatherStore').mockReturnValue({
       apiState: ApiStates.success,
     });

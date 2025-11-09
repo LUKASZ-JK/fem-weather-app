@@ -12,7 +12,9 @@ const DailyTile = ({ day, weatherCode, max, min }: DailyTileProps) => {
   const { apiState } = useWeatherStore();
 
   return (
-    <div className="bg-neutral-800 rounded-2xl py-4 flex flex-col text-center items-center gap-2">
+    <div
+      data-testid={`daily-tile-${day}`}
+      className="bg-neutral-800 rounded-2xl py-4 flex flex-col text-center items-center gap-2">
       <div
         className={`flex flex-col items-center w-full ${
           apiState === ApiStates.loadingWeather ? 'invisible' : ''

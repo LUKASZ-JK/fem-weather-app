@@ -19,6 +19,7 @@ const DaySelector = ({ day, handleDayChange }: DaySelectorProps) => {
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
           <Button
+            data-testid="day-selector-button"
             variant="default"
             className="flex items-center gap-2 
             text-neutral
@@ -35,6 +36,7 @@ const DaySelector = ({ day, handleDayChange }: DaySelectorProps) => {
         </DropdownMenuTrigger>
         {day && (
           <DropdownMenuContent
+            data-testid="day-selector-dropdown"
             className="bg-neutral-800 text-neutral border-0 w-48 p-2"
             align="start">
             {Object.values(Days).map(day => (

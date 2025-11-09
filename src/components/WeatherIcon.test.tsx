@@ -14,13 +14,13 @@ describe('WeatherIcon', () => {
     [999, 'sunny'], // unknown -> default
   ];
 
-  test('renders without crashing', () => {
+  it('renders without crashing', () => {
     render(<WeatherIcon weatherCode={0} size={32} />);
     const img = screen.getByTestId('weather-icon');
     expect(img).toBeInTheDocument();
   });
 
-  test('applies the correct size', () => {
+  it('applies the correct size', () => {
     const size = 32;
     render(<WeatherIcon weatherCode={0} size={size} />);
     const img = screen.getByTestId('weather-icon');
@@ -30,7 +30,7 @@ describe('WeatherIcon', () => {
     );
   });
 
-  test.each(weatherCases)('maps code %s to icon %s', (code, expected) => {
+  it.each(weatherCases)('maps code %s to icon %s', (code, expected) => {
     render(<WeatherIcon weatherCode={code} size={32} />);
     const img = screen.getByTestId('weather-icon');
 

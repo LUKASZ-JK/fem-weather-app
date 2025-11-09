@@ -78,7 +78,7 @@ const CurrentWeather = () => {
   }
 
   return (
-    <div>
+    <div data-testid="current-weather">
       <div
         data-testid="current-weather-large-tile"
         className="relative bg-neutral-800 rounded-[20px]">
@@ -98,7 +98,7 @@ const CurrentWeather = () => {
         <ConditionTile
           title={'Feels like'}
           value={apparentTemperature}
-          units={units.temperature}
+          units={'°'}
         />
         <ConditionTile title={'Humidity'} value={humidity} units={'%'} />
         <ConditionTile title={'Wind'} value={wind} units={units.windSpeed} />

@@ -12,7 +12,9 @@ const HourlyTile = ({ weatherCode, time, temperature }: HourTileProps) => {
   const { apiState } = useWeatherStore();
 
   return (
-    <div className="bg-neutral-700 rounded-2xl py-2 mr-4 flex flex-row text-center items-center gap-2">
+    <div
+      data-testid={`hourly-tile-${time}`}
+      className="bg-neutral-700 rounded-2xl py-2 mr-4 flex flex-row text-center items-center gap-2">
       <div
         className={`flex flex-row items-center w-full ${
           apiState === ApiStates.loadingWeather ? 'invisible' : ''

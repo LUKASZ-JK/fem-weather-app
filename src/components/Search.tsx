@@ -26,7 +26,7 @@ const Search = () => {
     }
     searchTimeoutRef.current = setTimeout(() => {
       void handleSearch(e.target.value);
-    }, 1000);
+    }, 500);
   };
 
   const handleClick = () => {
@@ -109,7 +109,9 @@ const Search = () => {
   }
 
   return (
-    <div className="flex flex-col relative mb-8 justify-center items-center">
+    <div
+      data-testid="search"
+      className="flex flex-col relative mb-8 justify-center items-center">
       <div className="flex flex-col mobile:flex-row gap-4 mobile:w-xl tablet:w-4xl mx-auto">
         <div className="relative w-full tablet:w-85/100">
           <img

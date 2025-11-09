@@ -14,7 +14,7 @@ export const CitySchema = z.object({
   timezone: z.string(),
   population: z.number().optional(),
   feature_code: z.string().optional(),
-  country: z.string(),
+  country: z.string().optional(),
   country_code: z.string().optional(),
   country_id: z.number().optional(),
   admin1: z.string().optional(),

@@ -1,16 +1,12 @@
 import { render, screen, within } from '@testing-library/react';
 import CurrentWeather from './CurrentWeather';
-import * as unitsStore from '@/stores/unitsStore';
 import * as weatherStore from '@/stores/weatherStore';
 import { ApiStates } from '@/types';
 
 describe('CurrentWeather', () => {
-  test('renders loading state when apiState is loadingWeather', () => {
+  it('renders loading state when apiState is loadingWeather', () => {
     vi.spyOn(weatherStore, 'useWeatherStore').mockReturnValue({
       apiState: ApiStates.loadingWeather,
-    });
-    vi.spyOn(unitsStore, 'useUnitsStore').mockReturnValue({
-      units: { temperature: '°C', windSpeed: 'km/h', precipitation: 'mm' },
     });
 
     render(<CurrentWeather />);
@@ -19,7 +15,7 @@ describe('CurrentWeather', () => {
     expect(screen.getByTestId('loading-text')).toBeInTheDocument();
   });
 
-  test('renders weather data when apiState is success', () => {
+  it('renders weather data when apiState is success', () => {
     vi.spyOn(weatherStore, 'useWeatherStore').mockReturnValue({
       apiState: ApiStates.success,
       city: { name: 'London', country: 'UK', timezone: 'Europe/London' },
@@ -35,24 +31,16 @@ describe('CurrentWeather', () => {
         },
       },
     });
-    vi.spyOn(unitsStore, 'useUnitsStore').mockReturnValue({
-      units: { temperature: '°C', windSpeed: 'km/h', precipitation: 'mm' },
-    });
 
     render(<CurrentWeather />);
 
     const currentWeatherLargeTile = screen.getByTestId(
       'current-weather-large-tile',
     );
-    expect(
-      within(currentWeatherLargeTile).getByText('15 °C'),
-    ).toBeInTheDocument();
-    expect(
-      within(currentWeatherLargeTile).getByText('London, UK'),
-    ).toBeInTheDocument();
-    expect(
-      within(currentWeatherLargeTile).getByText('Sunday, Oct 1, 2023'),
-    ).toBeInTheDocument();
+
+    expect(currentWeatherLargeTile).toHaveTextContent('15 °C');
+    expect(currentWeatherLargeTile).toHaveTextContent('London, UK');
+    expect(currentWeatherLargeTile).toHaveTextContent('Sunday, Oct 1, 2023');
 
     const weatherIcon = within(currentWeatherLargeTile).getByTestId(
       'weather-icon',
@@ -74,9 +62,9 @@ describe('CurrentWeather', () => {
       'condition-tile-Precipitation',
     );
 
-    expect(within(feelsLikeTile).getByText('12 °C')).toBeInTheDocument();
-    expect(within(humidityTile).getByText('80 %')).toBeInTheDocument();
-    expect(within(windTile).getByText('10 km/h')).toBeInTheDocument();
-    expect(within(precipitationTile).getByText('2 mm')).toBeInTheDocument();
+    expect(feelsLikeTile).toHaveTextContent('12°');
+    expect(humidityTile).toHaveTextContent('80 %');
+    expect(windTile).toHaveTextContent('10 km/h');
+    expect(precipitationTile).toHaveTextContent('2 mm');
   });
 });

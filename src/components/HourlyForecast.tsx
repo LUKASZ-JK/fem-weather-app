@@ -45,7 +45,6 @@ const HourlyForecast = () => {
             weekday: 'long',
           }) === day && entry.time >= weatherData.current.time,
       );
-
     hourlyTiles = weatherOnSelectedDay.map(entry => (
       <HourlyTile
         key={entry.time.toISOString()}
@@ -61,7 +60,9 @@ const HourlyForecast = () => {
   }
 
   return (
-    <div className="flex flex-col bg-neutral-800 rounded-2xl p-6 h-[650px]">
+    <div
+      data-testid="hourly-forecast"
+      className="flex flex-col bg-neutral-800 rounded-2xl p-6 h-[650px]">
       <div className="flex flex-shrink-0 justify-between items-center mb-4">
         <h3 className="text-xl mobile:text-2xl">Hourly forecast</h3>
         <DaySelector day={day} handleDayChange={handleDayChange} />

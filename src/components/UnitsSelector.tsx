@@ -27,10 +27,11 @@ const UnitsSelector = () => {
     setPrecipitation,
   } = useUnitsStore();
   return (
-    <>
+    <div data-testid="units-selector">
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
           <Button
+            data-testid="units-selector-button"
             variant="default"
             className="flex items-center gap-2 
             text-neutral
@@ -119,7 +120,7 @@ const UnitsSelector = () => {
           </DropdownMenuGroup>
         </DropdownMenuContent>
       </DropdownMenu>
-    </>
+    </div>
   );
 };
 
